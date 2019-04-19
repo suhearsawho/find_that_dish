@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block header %}
+{% endblock %}
+
+
+{% block content %}
+  <form method="GET">
+    <div class="form-group">
+      <label for="image-url">Image URL</label>
+      <input name="image-url" id="image-url" placeholder="Image URL" required class="form-control">
+      <label for="location">Location</label>
+      <input name="location" id="location" placeholder="Location" required class="form-control">
+      <input type="submit" value="Enter">
+  </form>
+
+{% endblock %}
