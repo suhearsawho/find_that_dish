@@ -3,6 +3,7 @@ import io
 
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
+from django.urls import reverse
 from google.cloud import vision
 from google.cloud.vision import types
 from urllib.parse import unquote
@@ -15,11 +16,12 @@ def index(request):
     meta = request.__dict__.get('META')
     query_string = meta.get('QUERY_STRING')
     if request.method == 'GET' and len(query_string) is not 0:
-        return redirect(results, query=query_string)
-
+        print(reverse('results'), type(reverse('results')))
+        return redirect(reverse('results') + 'search?%s' % query_string)
     return render(request, 'food/index.html')
 
-def results(request, query):
+def results(request, input_value):
+    query = request.__dict__.get('META').get('QUERY_STRING')
     query = unquote(query)
     query_list = query.split('&')
     query_dict = {}

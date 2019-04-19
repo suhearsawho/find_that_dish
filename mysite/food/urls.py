@@ -1,8 +1,8 @@
-from django.urls import path
+from django.urls import re_path, path
 
 from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('search?<str:query>', views.results, name='results'),
+    re_path(r'^(?P<input_value>\w+)?', views.results, name='results'),
 ]
