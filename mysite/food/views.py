@@ -21,16 +21,21 @@ def index(request):
     return render(request, 'food/index.html')
 
 def results(request, input_value):
-    query = request.__dict__.get('META').get('QUERY_STRING')
-    query = unquote(query)
-    query_list = query.split('&')
-    query_dict = {}
-    for i in range(len(query_list)):
-        single_query = query_list[i].split('=')
-        query_dict[single_query[0]] = single_query[1]
-     
-    food_image_name = report(annotate(query_dict.get('image-url')))
-    print(food_image_name)
+    print(input_value)
+    print('IN RESULTS', request.__dict__)
+    if input_value == 'search':
+        query = request.__dict__.get('META').get('QUERY_STRING')
+        query = unquote(query)
+        query_list = query.split('&')
+        query_dict = {}
+        for i in range(len(query_list)):
+            single_query = query_list[i].split('=')
+            query_dict[single_query[0]] = single_query[1]
+         
+        food_image_name = report(annotate(query_dict.get('image-url')))
+        print(food_image_name)
+        html_dict = {'food': food_image_name}
+        return render(request, 'food/results.html', {'food_image': food_image_name})
     return render(request, 'food/results.html')
 
 def report(annotations):
